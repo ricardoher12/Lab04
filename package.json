@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ricardoher12/Lab04#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "yars": "^1.2.0"
   }
 }
