@@ -1,54 +1,17 @@
-const {argv, getComando} = require('./yargs');
+var express = require('express');
+var app = express();
 
-let cmd = getComando();
+app.get('/', function (req, res) {
+  res.send('Hello World!');
+});
 
-let comando = cmd.toString();
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
+});
 
+app.get('/hello/:name/', sayHello);
 
-    var stack = [];
-
-     for (let i = 0; i < comando.length; i++) {
-
-         if(comando.charAt(i) == "{" || comando.charAt(i) == "(" || comando.charAt(i) == "["){
-            stack.push(comando.charAt(i));
-         }
-         
-         if(comando.charAt(i) == "}" || comando.charAt(i) == ")" || comando.charAt(i) == "]"){
-            try {
-
-                let chr = stack.pop();
-                
-            switch(comando.charAt(i))
-            {
-                case "}":
-                if(chr != "{"){
-                    console.log("Cadena invalida se esperaba {");
-                    return;
-                }
-                break;
-
-                case ")":
-                if(chr != "("){
-                    console.log("Cadena invalida se esperaba (");
-                    return;
-                }
-                break;
-
-                case "]":
-                if(chr != "["){
-                    console.log("Cadena invalida se esperaba [");
-                    return;
-                }
-                break;
-            }
-                
-            } catch (error) {
-             console.log("Cadena invalida");
-            }      
-     }
-    }
-
-    if(stack.length != 0)
-    {
-        console.log("Cadena invalida");
-    }
+function sayHello(request, response) {
+    var name = request.params.name;
+    response.send(JSON.stringify({"hello": name}));
+  }
